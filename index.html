@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Al Rasheed Medicare</title>
+<style>
+  :root {
+    --red: #c62828;
+    --red-dark: #8e1616;
+    --red-light: #ef5350;
+    --ink: #37474f;
+    --slate: #455a64;
+    --brown: #6d4c41;
+    --bg: #faf7f7;
+    --card: #ffffff;
+    --line: #f0e0e0;
+    --text: #2d2d2d;
+    --muted: #8a7a7a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1416; --card: #241c1f; --line: #3a2d30;
+      --text: #f2eaea; --muted: #a89a9a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1416; --card: #241c1f; --line: #3a2d30;
+    --text: #f2eaea; --muted: #a89a9a;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 16px; }
+
+  header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 6px; margin-bottom: 4px;
+  }
+  h1 { font-size: 21px; margin: 0; color: var(--red); letter-spacing: -0.2px; }
+  .stamp { font-size: 12px; color: var(--muted); }
+  .rule { height: 3px; background: var(--red); border-radius: 2px; margin: 10px 0 18px; }
+
+  /* ---- password gate ---- */
+  #gate { max-width: 380px; margin: 14vh auto; padding: 0 16px; }
+  #gate h2 { color: var(--red); font-size: 19px; margin: 0 0 6px; }
+  #gate p { color: var(--muted); font-size: 13px; margin: 0 0 16px; line-height: 1.5; }
+  .field { display: flex; gap: 8px; }
+  input[type=password] {
+    flex: 1; padding: 12px 14px; font-size: 16px;
+    border: 2px solid var(--line); border-radius: 8px;
+    background: var(--card); color: var(--text);
+  }
+  input[type=password]:focus { border-color: var(--red); outline: none; }
+  button {
+    padding: 12px 18px; font-size: 15px; font-weight: 700;
+    background: var(--red); color: #fff; border: none;
+    border-radius: 8px; cursor: pointer;
+  }
+  button:active { background: var(--red-dark); }
+  button:disabled { opacity: .6; cursor: default; }
+  .err { color: var(--red); font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+  /* ---- tiles ---- */
+  h3.sec {
+    font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--muted); margin: 22px 0 8px; font-weight: 700;
+  }
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  @media (max-width: 720px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  .tile { border-radius: 10px; padding: 12px 14px; color: #fff; min-height: 76px; }
+  .tile .k { font-size: 10.5px; letter-spacing: .6px; opacity: .95; font-weight: 600; }
+  .tile .v { font-size: 20px; font-weight: 800; margin-top: 6px; word-break: break-word; }
+  .t-red { background: var(--red); }
+  .t-pink { background: var(--red-light); }
+  .t-brown { background: var(--brown); }
+  .t-slate { background: var(--slate); }
+  .t-ink { background: var(--ink); }
+
+  /* ---- lists ---- */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 12px 14px;
+  }
+  .card h4 {
+    margin: 0 0 8px; font-size: 14px; color: var(--red);
+    border-bottom: 1px solid var(--line); padding-bottom: 7px;
+  }
+  .card h4.warn { color: #e07800; }
+  .row {
+    display: flex; justify-content: space-between; gap: 10px;
+    padding: 5px 0; font-size: 13.5px; border-bottom: 1px solid var(--line);
+  }
+  .row:last-child { border-bottom: none; }
+  .row .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row .vl { font-weight: 700; white-space: nowrap; color: var(--muted); }
+  .row .vl.bad { color: var(--red); }
+  .none { color: var(--muted); font-size: 13px; padding: 5px 0; }
+
+  footer { margin: 26px 0 10px; font-size: 11.5px; color: var(--muted); text-align: center; line-height: 1.6; }
+  .hide { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <h2>Al Rasheed Medicare</h2>
+  <p>This page is locked. Enter the password to see today's figures.</p>
+  <form class="field" id="gateForm">
+    <input type="password" id="pass" placeholder="Password" autocomplete="current-password" autofocus>
+    <button type="submit" id="go">Open</button>
+  </form>
+  <div class="err" id="err"></div>
+</div>
+
+<div class="wrap hide" id="app">
+  <header>
+    <h1 id="storeName">Al Rasheed Medicare</h1>
+    <div class="stamp" id="stamp"></div>
+  </header>
+  <div class="rule"></div>
+
+  <h3 class="sec">Today</h3>
+  <div class="tiles">
+    <div class="tile t-red"><div class="k">SALES TODAY</div><div class="v" id="tSales">–</div></div>
+    <div class="tile t-pink"><div class="k">BILLS</div><div class="v" id="tBills">–</div></div>
+    <div class="tile t-brown"><div class="k">ITEMS SOLD</div><div class="v" id="tItems">–</div></div>
+    <div class="tile t-slate"><div class="k">DOCTOR + LAB</div><div class="v" id="tSvc">–</div></div>
+  </div>
+
+  <h3 class="sec">This month</h3>
+  <div class="tiles">
+    <div class="tile t-red"><div class="k">SALES</div><div class="v" id="mSales">–</div></div>
+    <div class="tile t-pink"><div class="k">BILLS</div><div class="v" id="mBills">–</div></div>
+    <div class="tile t-brown"><div class="k">MEDICINES</div><div class="v" id="mMeds">–</div></div>
+    <div class="tile t-slate"><div class="k">DOCTOR + LAB</div><div class="v" id="mSvc">–</div></div>
+  </div>
+
+  <h3 class="sec">Stock on shelf</h3>
+  <div class="tiles">
+    <div class="tile t-red"><div class="k">MEDICINE (SALE)</div><div class="v" id="sSale">–</div></div>
+    <div class="tile t-ink"><div class="k">MEDICINE (COST)</div><div class="v" id="sCost">–</div></div>
+    <div class="tile t-brown"><div class="k">SURGICAL</div><div class="v" id="sOther">–</div></div>
+    <div class="tile t-slate"><div class="k">TEST KITS</div><div class="v" id="sKits">–</div></div>
+  </div>
+
+  <h3 class="sec">Attention</h3>
+  <div class="cols">
+    <div class="card">
+      <h4 id="hExpired">Expired</h4>
+      <div id="lExpired"></div>
+    </div>
+    <div class="card">
+      <h4 class="warn" id="hExpiring">Expiring within 30 days</h4>
+      <div id="lExpiring"></div>
+    </div>
+    <div class="card">
+      <h4 class="warn" id="hLow">Low stock</h4>
+      <div id="lLow"></div>
+    </div>
+    <div class="card">
+      <h4>Top sellers today</h4>
+      <div id="lTop"></div>
+    </div>
+  </div>
+
+  <footer>
+    View only. Figures are as at the time shown above.<br>
+    <span id="prodCount"></span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var ROUNDS = 150000;
+  var symbol = "Rs";
+
+  function $(id) { return document.getElementById(id); }
+
+  function money(n) {
+    var v = Number(n) || 0;
+    return symbol + v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function list(el, rows, emptyText, bad) {
+    if (!rows || rows.length === 0) {
+      el.innerHTML = '<div class="none">' + esc(emptyText) + "</div>";
+      return;
+    }
+    el.innerHTML = rows.slice(0, 8).map(function (r) {
+      return '<div class="row"><span class="nm">' + esc(r[0]) +
+             '</span><span class="vl' + (bad ? " bad" : "") + '">' + esc(r[1]) + "</span></div>";
+    }).join("");
+  }
+
+  async function decrypt(blob, pass, rounds) {
+    var raw = Uint8Array.from(atob(blob), function (c) { return c.charCodeAt(0); });
+    var salt = raw.slice(0, 16), iv = raw.slice(16, 28), body = raw.slice(28);
+    var base = await crypto.subtle.importKey(
+      "raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+    var key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: salt, iterations: rounds || ROUNDS, hash: "SHA-256" },
+      base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    var out = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, body);
+    return JSON.parse(new TextDecoder().decode(out));
+  }
+
+  function render(d) {
+    symbol = d.symbol || "Rs";
+    $("storeName").textContent = d.store || "Pharmacy";
+    document.title = d.store || "Pharmacy";
+    $("stamp").textContent = "Updated " + (d.generated || "");
+
+    $("tSales").textContent = money(d.today.sales);
+    $("tBills").textContent = d.today.count;
+    $("tItems").textContent = d.today.items;
+    $("tSvc").textContent = money(d.today.services);
+
+    $("mSales").textContent = money(d.month.sales);
+    $("mBills").textContent = d.month.count;
+    $("mMeds").textContent = money(d.month.medicines);
+    $("mSvc").textContent = money(d.month.services);
+
+    $("sSale").textContent = money(d.stock.medSale);
+    $("sCost").textContent = d.stock.medCost > 0 ? money(d.stock.medCost) : "not set";
+    $("sOther").textContent = money(d.stock.otherSale);
+    $("sKits").textContent = money(d.stock.kitSale);
+
+    $("hExpired").textContent = "Expired (" + d.expired.length + ")";
+    $("hExpiring").textContent = "Expiring within 30 days (" + d.expiring.length + ")";
+    $("hLow").textContent = "Low stock (" + d.lowStock.length + ")";
+
+    list($("lExpired"), d.expired.map(function (e) { return [e.name, e.date]; }), "Nothing expired", true);
+    list($("lExpiring"), d.expiring.map(function (e) { return [e.name, e.days + " days"]; }), "Nothing expiring soon");
+    list($("lLow"), d.lowStock.map(function (l) { return [l.name, l.qty + " left"]; }), "All stock levels fine");
+    list($("lTop"), d.top.map(function (t) { return [t.name, String(t.qty)]; }), "No sales yet today");
+
+    $("prodCount").textContent = d.stock.productCount + " products on file";
+
+    $("gate").classList.add("hide");
+    $("app").classList.remove("hide");
+  }
+
+  var savedPass = null;
+
+  async function load(pass) {
+    var res = await fetch("data.json?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error("The figures file could not be read (" + res.status + ")");
+    var file = await res.json();
+    return decrypt(file.blob, pass, file.rounds);
+  }
+
+  $("gateForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var pass = $("pass").value;
+    if (!pass) return;
+    $("go").disabled = true;
+    $("err").textContent = "Opening...";
+    try {
+      var data = await load(pass);
+      savedPass = pass;
+      try { sessionStorage.setItem("arm_pass", pass); } catch (x) {}
+      render(data);
+    } catch (err) {
+      $("err").textContent =
+        /operation|decrypt/i.test(err.message || "")
+          ? "Wrong password."
+          : err.message;
+    }
+    $("go").disabled = false;
+  });
+
+  // Keep it current while the page is open, and remember the password
+  // only for this browser tab.
+  try {
+    var remembered = sessionStorage.getItem("arm_pass");
+    if (remembered) {
+      $("pass").value = remembered;
+      load(remembered).then(function (d) { savedPass = remembered; render(d); }).catch(function () {});
+    }
+  } catch (x) {}
+
+  setInterval(function () {
+    if (!savedPass) return;
+    load(savedPass).then(render).catch(function () {});
+  }, 5 * 60 * 1000);
+})();
+</script>
+</body>
+</html>
